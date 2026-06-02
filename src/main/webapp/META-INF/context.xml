@@ -17,28 +17,27 @@
 	correspodiente a tu base de datos al pom.xml de tu proyecto.	
 	-->
 	 
-	<!-- HSQLDB -->   	
+	<!-- HSQLDB
     <Resource name="jdbc/CondominiosPMSDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" 
 	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
-	      
+	-->
+
 	<!-- MySQL       
     <Resource name="jdbc/CondominiosPMSDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="root" password="" 
 	      driverClassName="com.mysql.cj.jdbc.Driver"
 	      url="jdbc:mysql://localhost:3306/CondominiosPMSdb"/>	      
-	-->      
-	
-	<!-- PostgreSQL 
-	<Resource name="jdbc/CondominiosPMSDS" auth="Container" type="javax.sql.DataSource"
-	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="postgres" password="" 
-	      driverClassName="org.postgresql.Driver" 
-	      url="jdbc:postgresql://localhost/CondominiosPMSdb"/>
 	-->
+
+	<Resource name="jdbc/CondominiosPMSDS" auth="Container" type="javax.sql.DataSource"
+	          maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	          username="postgres" password="admin123"
+	          driverClassName="org.postgresql.Driver"
+	          url="jdbc:postgresql://localhost:5432/condominios_db"/>
 	
 	<!-- Oracle 
 	<Resource name="jdbc/CondominiosPMSDS" auth="Container" type="javax.sql.DataSource"
