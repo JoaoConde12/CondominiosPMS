@@ -23,7 +23,7 @@ public class Usuario {
     private String correo;
 
     @Column(name = "contrasena_hash", nullable = false)
-    @Password
+    @Hidden
     private String contrasenaHash;
 
     @Column(name = "nombre_completo", nullable = false)
