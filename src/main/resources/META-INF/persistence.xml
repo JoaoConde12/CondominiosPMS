@@ -4,7 +4,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
              version="1.0">
-             
+
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<non-jta-data-source>java://comp/env/jdbc/CondominiosPMSDS</non-jta-data-source>
@@ -21,11 +21,24 @@
     	<class>com.openxava.naviox.model.SSORecord</class>
     	<class>com.openxava.naviox.model.User</class>
 		<class>com.openxava.naviox.model.LDAPConfiguration</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Usuario</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Administrador</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Copropietario</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.UnidadHabitacional</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.TarifaAlicuota</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Alicuota</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Pago</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Comprobante</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Incidencia</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.BitacoraIncidencia</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Asignacion</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.Notificacion</class>
+		<class>com.condominiospms.CondominiosPMS.modelo.LogAuditoria</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
         </properties>
     </persistence-unit>
-                    
+
     <!-- JUnit Hypersonic -->
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -44,6 +57,6 @@
         <properties>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
         </properties>
-    </persistence-unit>    
-    
+    </persistence-unit>
+
 </persistence>
