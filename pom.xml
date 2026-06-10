@@ -50,6 +50,13 @@
     		<version>42.7.11</version>
 		</dependency>
 
+		<!-- BCrypt para hasheo de contraseñas -->
+		<dependency>
+			<groupId>at.favre.lib</groupId>
+			<artifactId>bcrypt</artifactId>
+			<version>0.10.2</version>
+		</dependency>
+
 		<!-- Oracle 
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
