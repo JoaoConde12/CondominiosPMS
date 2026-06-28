@@ -28,4 +28,17 @@
                 icono="close-circle"/>
     </controlador>
 
+    <controlador nombre="Pago">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="generarComprobante"
+                clase="com.condominiospms.CondominiosPMS.acciones.GenerarComprobanteAction"
+                icono="file-pdf-box"/>
+    </controlador>
+
+    <controlador nombre="Alicuota">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="generarReporteMorosidad"
+                clase="com.condominiospms.CondominiosPMS.acciones.GenerarReporteMorosidadAction"
+                icono="file-chart"/>
+    </controlador>
 </controladores>

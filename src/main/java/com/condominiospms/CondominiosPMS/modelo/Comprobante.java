@@ -4,7 +4,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "comprobante")
@@ -18,14 +18,19 @@ public class Comprobante {
 
     @OneToOne
     @JoinColumn(name = "id_pago", nullable = false)
+    @Required
     private Pago pago;
 
     @Column(unique = true, nullable = false)
+    @ReadOnly
     private String codigo;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_generacion")
-    private LocalDateTime fechaGeneracion;
+    @ReadOnly
+    private Date fechaGeneracion;
 
     @Column(name = "ruta_pdf")
+    @ReadOnly
     private String rutaPdf;
 }
