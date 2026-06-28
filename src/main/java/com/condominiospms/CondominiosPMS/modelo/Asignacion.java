@@ -18,17 +18,36 @@ public class Asignacion {
 
     @ManyToOne
     @JoinColumn(name = "id_copropietario", nullable = false)
+    @Required
     private Copropietario copropietario;
 
     @ManyToOne
     @JoinColumn(name = "id_unidad", nullable = false)
+    @Required
     private UnidadHabitacional unidad;
 
     @Column(name = "fecha_inicio")
-    private LocalDate fechaInicio;
+    private java.util.Date fechaInicio;
 
     @Column(name = "fecha_fin")
-    private LocalDate fechaFin;
+    private java.util.Date fechaFin;
 
-    private Boolean activa;
+    private Boolean activa = true;
+
+    @PrePersist
+    public void alCrear() {
+        if (fechaInicio == null) {
+            fechaInicio = new java.util.Date();
+        }
+        if (unidad != null) {
+            unidad.setEstado(com.condominiospms.CondominiosPMS.modelo.enums.EstadoUnidad.OCUPADA);
+        }
+    }
+
+    @PreRemove
+    public void alEliminar() {
+        if (unidad != null) {
+            unidad.setEstado(com.condominiospms.CondominiosPMS.modelo.enums.EstadoUnidad.DISPONIBLE);
+        }
+    }
 }

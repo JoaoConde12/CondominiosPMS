@@ -4,7 +4,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "bitacora_incidencia")
@@ -18,13 +18,27 @@ public class BitacoraIncidencia {
 
     @ManyToOne
     @JoinColumn(name = "id_incidencia", nullable = false)
+    @Required
     private Incidencia incidencia;
 
     @Column(columnDefinition = "TEXT")
+    @Required
+    @Stereotype("MEMO")
     private String texto;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_hora")
-    private LocalDateTime fechaHora;
+    @ReadOnly
+    private Date fechaHora;
 
+    @ReadOnly
     private String autor;
+
+    @PrePersist
+    public void alCrear() {
+        fechaHora = new Date();
+        if (autor == null || autor.isEmpty()) {
+            autor = "Sistema";
+        }
+    }
 }

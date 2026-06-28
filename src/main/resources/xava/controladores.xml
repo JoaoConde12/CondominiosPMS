@@ -2,34 +2,30 @@
 
 <!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
 
-<!-- 
-Documentación sobre controladores: 
-https://www.openxava.org/OpenXavaDoc/docs/controllers_es.html
-
-Controladores por defecto, incluidos en OpenXava (puedes extender de ellos):
-https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
- 
-Ejemplos de controladores (de la aplicación de pruebas):
-https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
--->
-
 <controladores>
-    
-    <!-- Variable de entorno: 
-    <var-entorno nombre="CondominiosPMS_ANYO_DEFECTO" valor="2015"/>
-    -->
-    
-    <!-- Objeto de sesión:
-    <Objeto nombre="CondominiosPMS_anyoActivo" clase="java.lang.Integer" valor="2015" 
-            ambito="global"/>
-    -->
-    
-    <!-- Controlador:
-    <controlador nombre="Profesor">
+
+    <controlador nombre="Autenticador">
         <hereda-de controlador="Typical"/>
-        <accion nombre="new" icono="plus-box-multiple" atajo-de-teclado="Control N" 
-                clase="acciones.CrearProfesor"/>        
+        <accion nombre="ingresar"
+                clase="com.condominiospms.CondominiosPMS.acciones.AutenticadorAction"
+                icono="login"/>
     </controlador>
-    -->
-    
+
+    <controlador nombre="Copropietario">
+        <hereda-de controlador="Typical"/>
+    </controlador>
+
+    <controlador nombre="Incidencia">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="pasarAEnProceso"
+                clase="com.condominiospms.CondominiosPMS.acciones.PasarAEnProcesoAction"
+                icono="play-circle"/>
+        <accion nombre="resolver"
+                clase="com.condominiospms.CondominiosPMS.acciones.ResolverIncidenciaAction"
+                icono="check-circle"/>
+        <accion nombre="cancelar"
+                clase="com.condominiospms.CondominiosPMS.acciones.CancelarIncidenciaAction"
+                icono="close-circle"/>
+    </controlador>
+
 </controladores>

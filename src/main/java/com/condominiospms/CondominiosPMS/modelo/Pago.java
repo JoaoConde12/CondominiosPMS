@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "pago")
@@ -21,6 +21,7 @@ public class Pago {
 
     @ManyToOne
     @JoinColumn(name = "id_alicuota", nullable = false)
+    @Required
     private Alicuota alicuota;
 
     @ManyToOne
@@ -28,20 +29,48 @@ public class Pago {
     private Administrador administrador;
 
     @Column(nullable = false, precision = 10, scale = 2)
+    @Required
     private BigDecimal monto;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_pago")
-    private LocalDate fechaPago;
+    private Date fechaPago;
 
     @Enumerated(EnumType.STRING)
+    @Required
     private MetodoPago metodo;
 
     @Column(name = "referencia_bancaria")
     private String referenciaBancaria;
 
     @Enumerated(EnumType.STRING)
-    private EstadoPago estado;
+    private EstadoPago estado = EstadoPago.ACTIVO;
 
     @Column(name = "motivo_anulacion")
     private String motivoAnulacion;
+
+    @PrePersist
+    public void alCrear() {
+        if (fechaPago == null) fechaPago = new Date();
+        if (estado == null) estado = EstadoPago.ACTIVO;
+
+        // Actualizar monto pagado en la alícuota
+        if (alicuota != null && monto != null) {
+            BigDecimal montoPagadoActual = alicuota.getMontoPagado();
+            if (montoPagadoActual == null) montoPagadoActual = BigDecimal.ZERO;
+            alicuota.setMontoPagado(montoPagadoActual.add(monto));
+            alicuota.calcularEstado();
+        }
+    }
+
+    @PreUpdate
+    public void alActualizar() {
+        // Si se anula el pago, revertir el monto en la alícuota
+        if (estado == EstadoPago.ANULADO && alicuota != null && monto != null) {
+            BigDecimal montoPagadoActual = alicuota.getMontoPagado();
+            if (montoPagadoActual == null) montoPagadoActual = BigDecimal.ZERO;
+            alicuota.setMontoPagado(montoPagadoActual.subtract(monto));
+            alicuota.calcularEstado();
+        }
+    }
 }

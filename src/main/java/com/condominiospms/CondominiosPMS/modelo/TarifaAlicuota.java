@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "tarifa_alicuota")
@@ -20,13 +20,22 @@ public class TarifaAlicuota {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_unidad", nullable = false)
+    @Required
     private TipoUnidad tipoUnidad;
 
     @Column(nullable = false, precision = 10, scale = 2)
+    @Required
     private BigDecimal monto;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_vigencia")
-    private LocalDate fechaVigencia;
+    private Date fechaVigencia;
 
-    private Boolean activa;
+    private Boolean activa = true;
+
+    @PrePersist
+    public void alCrear() {
+        if (activa == null) activa = true;
+        if (fechaVigencia == null) fechaVigencia = new Date();
+    }
 }

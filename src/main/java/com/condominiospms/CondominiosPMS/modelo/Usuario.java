@@ -23,6 +23,8 @@ public class Usuario {
     private Long id;
 
     @Column(unique = true, nullable = false)
+    @Required
+    @javax.validation.constraints.Email
     private String correo;
 
     @Column(name = "contrasena_hash", nullable = false)

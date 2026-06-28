@@ -4,7 +4,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "notificacion")
@@ -16,18 +16,31 @@ public class Notificacion {
     @Hidden
     private Long id;
 
-    @Column(name = "destinatario_correo")
+    @Column(name = "destinatario_correo", nullable = false)
+    @Required
     private String destinatarioCorreo;
 
+    @Required
     private String asunto;
 
     @Column(columnDefinition = "TEXT")
+    @Stereotype("MEMO")
     private String cuerpo;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_envio")
-    private LocalDateTime fechaEnvio;
+    @ReadOnly
+    private Date fechaEnvio;
 
-    private Boolean enviada;
+    @ReadOnly
+    private Boolean enviada = false;
 
-    private Integer intentos;
+    @ReadOnly
+    private Integer intentos = 0;
+
+    @PrePersist
+    public void alCrear() {
+        if (enviada == null) enviada = false;
+        if (intentos == null) intentos = 0;
+    }
 }
