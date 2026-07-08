@@ -2,23 +2,85 @@
 
 <!DOCTYPE aplicacion SYSTEM "dtds/aplicacion.dtd">
 
-<aplicacion nombre="CondominiosPMS"> 
-	
-	<!--
-	Un módulo por defecto se asume para cada
-	controlador en <modulo-defecto/> 
-	-->
-	<modulo-defecto>		  
-		<controlador nombre="Typical"/>		
-	</modulo-defecto>
-	
-	<!--
-	Podemos definir módulos adicionales, por ejemplo: 	
-	<modulo nombre="ProfesorSoloLectura">
-		<modelo nombre="Profesor"/>
-		<controlador nombre="Print"/>
-	</modulo>		
-	-->	  
-		
-</aplicacion>
+<aplicacion nombre="CondominiosPMS">
 
+	<modulo-defecto>
+		<controlador nombre="Typical"/>
+	</modulo-defecto>
+
+	<modulo nombre="Administrador">
+		<modelo nombre="Administrador"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="Usuario">
+		<modelo nombre="Usuario"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="UnidadHabitacional">
+		<modelo nombre="UnidadHabitacional"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="TarifaAlicuota">
+		<modelo nombre="TarifaAlicuota"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="Copropietario">
+		<modelo nombre="Copropietario"/>
+		<controlador nombre="Copropietario"/>
+	</modulo>
+
+	<modulo nombre="Asignacion">
+		<modelo nombre="Asignacion"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="Alicuota">
+		<modelo nombre="Alicuota"/>
+		<controlador nombre="Alicuota"/>
+	</modulo>
+
+	<modulo nombre="Pago">
+		<modelo nombre="Pago"/>
+		<controlador nombre="Pago"/>
+	</modulo>
+
+	<modulo nombre="Comprobante">
+		<modelo nombre="Comprobante"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="Incidencias">
+		<modelo nombre="Incidencia"/>
+		<controlador nombre="Incidencia"/>
+	</modulo>
+
+	<modulo nombre="BitacoraIncidencia">
+		<modelo nombre="BitacoraIncidencia"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="LogAuditoria">
+		<modelo nombre="LogAuditoria"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="Notificacion">
+		<modelo nombre="Notificacion"/>
+		<controlador nombre="Typical"/>
+	</modulo>
+
+	<modulo nombre="MiEstadoDeCuenta">
+		<modelo nombre="Alicuota"/>
+		<controlador nombre="ReadOnly"/>
+	</modulo>
+
+	<modulo nombre="MisIncidencias">
+		<modelo nombre="Incidencia"/>
+		<controlador nombre="Incidencia"/>
+	</modulo>
+
+</aplicacion>

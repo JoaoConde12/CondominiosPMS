@@ -33,4 +33,12 @@ public class Comprobante {
     @Column(name = "ruta_pdf")
     @ReadOnly
     private String rutaPdf;
+
+    @PrePersist
+    public void antesDeGuardar() {
+        this.fechaGeneracion = new Date();
+        String anio = new java.text.SimpleDateFormat("yyyy").format(this.fechaGeneracion);
+        Long idPago = (this.pago != null && this.pago.getId() != null) ? this.pago.getId() : 0L;
+        this.codigo = "COMP-" + anio + "-" + String.format("%05d", idPago);
+    }
 }

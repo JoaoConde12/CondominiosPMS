@@ -80,8 +80,12 @@ public class Incidencia {
 
     private String generarCodigo() {
         int anio = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-        long timestamp = System.currentTimeMillis() % 1000;
-        return String.format("INC-%d-%03d", anio, timestamp);
+        Long ultimo = (Long) org.openxava.jpa.XPersistence.getManager()
+                .createQuery("SELECT COUNT(i) FROM Incidencia i WHERE " +
+                        "FUNCTION('YEAR', i.fechaCreacion) = :anio")
+                .setParameter("anio", anio)
+                .getSingleResult();
+        return String.format("INC-%d-%03d", anio, ultimo + 1);
     }
 
     public void pasarAEnProceso(String responsable) {

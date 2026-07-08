@@ -3,6 +3,8 @@ package com.condominiospms.CondominiosPMS.modelo;
 import com.condominiospms.CondominiosPMS.modelo.enums.EstadoUsuario;
 import com.condominiospms.CondominiosPMS.modelo.enums.Rol;
 import javax.persistence.*;
+
+import com.condominiospms.CondominiosPMS.servicios.ServicioNotificaciones;
 import lombok.Getter;
 import lombok.Setter;
 import org.openxava.annotations.*;
@@ -58,16 +60,35 @@ public class Usuario {
     private Date fechaBloqueo;
 
     @PrePersist
-    @PreUpdate
-    public void hashearContrasena() {
+    public void antesDeGuardar() {
         if (contrasena != null && !contrasena.isEmpty()) {
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
                 byte[] hash = md.digest(contrasena.getBytes(StandardCharsets.UTF_8));
                 StringBuilder sb = new StringBuilder();
-                for (byte b : hash) {
-                    sb.append(String.format("%02x", b));
-                }
+                for (byte b : hash) sb.append(String.format("%02x", b));
+                this.contrasenaHash = sb.toString();
+            } catch (NoSuchAlgorithmException e) {
+                this.contrasenaHash = contrasena;
+            }
+        }
+        if (this.correo != null && this.nombreCompleto != null) {
+            ServicioNotificaciones.enviarBienvenida(
+                    this.correo,
+                    this.nombreCompleto,
+                    this.contrasena != null ? this.contrasena : "****"
+            );
+        }
+    }
+
+    @PreUpdate
+    public void antesDeActualizar() {
+        if (contrasena != null && !contrasena.isEmpty()) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] hash = md.digest(contrasena.getBytes(StandardCharsets.UTF_8));
+                StringBuilder sb = new StringBuilder();
+                for (byte b : hash) sb.append(String.format("%02x", b));
                 this.contrasenaHash = sb.toString();
             } catch (NoSuchAlgorithmException e) {
                 this.contrasenaHash = contrasena;
